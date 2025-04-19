@@ -32,7 +32,7 @@ for path, file_id in drive_files.items():
     download_file_from_drive(file_id, path)
 
 # ✅ Load them into memory
-model = joblib.load("model/repacked_model.pkl")
+model = joblib.load("model/cancer_treatment_protocol_model.pkl")
 scaler = joblib.load("model/scaler.pkl")
 label_encoder = joblib.load("model/label_encoder.pkl")
 feature_names = joblib.load("model/feature_names.pkl")
