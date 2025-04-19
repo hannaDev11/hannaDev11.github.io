@@ -1,9 +1,11 @@
 from flask import Flask, request, render_template, jsonify
 import joblib
 import pandas as pd
-import csv
-import os
+import csv 
 import requests
+import os
+
+app = Flask(__name__, template_folder='.')
 
 # Util: download file from Google Drive
 def download_file_from_drive(file_id, destination):
@@ -29,13 +31,11 @@ drive_files = {
 for path, file_id in drive_files.items():
     download_file_from_drive(file_id, path)
 
-# Load components
+# ✅ Load them into memory
 model = joblib.load("model/cancer_treatment_protocol_model.pkl")
 scaler = joblib.load("model/scaler.pkl")
 label_encoder = joblib.load("model/label_encoder.pkl")
 feature_names = joblib.load("model/feature_names.pkl")
-
-app = Flask(__name__, template_folder='.')
 
 
 @app.route("/", methods=["GET"])
