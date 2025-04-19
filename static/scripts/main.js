@@ -9,7 +9,7 @@ function handleFormSubmit(event) {
     document.getElementById("predictionForm").classList.add("hidden");
     document.getElementById("resultPage").classList.add("hidden");
 
-    fetch("https://your-flask-app.onrender.com/predict", {
+    fetch("https://hannaDev11.github.io/predict", {
     method: "POST",
     headers: {
         "Content-Type": "application/json",
