@@ -2,8 +2,13 @@ from flask import Flask, request, render_template, jsonify
 import joblib
 import pandas as pd
 import csv 
+import requests
 
 app = Flask(__name__, template_folder='.')
+url = "https://drive.google.com/file/d/1qEzn4h3dGQQczj2CMwdLD5MJs48lUJuc/view?usp=drive_link"
+r = requests.get(url)
+with open("model/cancer_treatment_protocol_model.pkl", "wb") as f:
+    f.write(r.content)
 
 model = joblib.load("model/cancer_treatment_protocol_model.pkl")
 scaler = joblib.load("model/scaler.pkl")
