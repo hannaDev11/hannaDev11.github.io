@@ -37,7 +37,6 @@ scaler = joblib.load("model/scaler.pkl")
 label_encoder = joblib.load("model/label_encoder.pkl")
 feature_names = joblib.load("model/feature_names.pkl")
 
-
 @app.route("/", methods=["GET"])
 def index():
     return render_template("index.html")
