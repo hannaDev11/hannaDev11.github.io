@@ -5,7 +5,7 @@ import csv
 import requests
 import os
 
-MODEL_URL = "https://your-public-link.com/cancer_treatment_protocol_model.pkl"
+MODEL_URL = "https://drive.google.com/file/d/1qEzn4h3dGQQczj2CMwdLD5MJs48lUJuc/view?usp=drive_link"
 MODEL_PATH = "model/cancer_treatment_protocol_model.pkl"
 
 # Download model if not already there
