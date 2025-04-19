@@ -1,41 +1,42 @@
 from flask import Flask, request, render_template, jsonify
 import joblib
 import pandas as pd
-import csv 
+import csv
 import os
 import requests
 
-def download_model_from_drive(file_id, destination):
+# Util: download file from Google Drive
+def download_file_from_drive(file_id, destination):
     if os.path.exists(destination):
-        return  # Don't re-download if already exists
-
-    print("📥 Downloading model from Google Drive...")
+        return
+    print(f"📥 Downloading {destination}...")
     url = f"https://drive.google.com/uc?export=download&id={file_id}"
     response = requests.get(url)
     os.makedirs(os.path.dirname(destination), exist_ok=True)
     with open(destination, "wb") as f:
         f.write(response.content)
-    print("✅ Model downloaded.")
+    print(f"✅ Downloaded {destination}")
 
-# Usage
-model_path = "model/cancer_treatment_protocol_model.pkl"
-drive_file_id = "your-file-id-here"  # ← paste your actual Google Drive ID
-download_model_from_drive(drive_file_id, model_path)
+# Google Drive file IDs
+drive_files = {
+    "model/cancer_treatment_protocol_model.pkl": "1qEzn4h3dGQQczj2CMwdLD5MJs48lUJuc",
+    "model/scaler.pkl": "1ghjucsm2dlEoomt53PCWe7rcbgPHr6ft",
+    "model/label_encoder.pkl":"1I-qCObWfWfEJr4l6Mgl_VIAYrzdVZ-FE",
+    "model/feature_names.pkl": "1jgJY2qzXXfLCljILlpBfwswm6OA9guDv"
+}
 
-# Then load model
-model = joblib.load(model_path)
+# Download all model components
+for path, file_id in drive_files.items():
+    download_file_from_drive(file_id, path)
 
-
-app = Flask(__name__, template_folder='.')
-url = "https://drive.google.com/file/d/1qEzn4h3dGQQczj2CMwdLD5MJs48lUJuc/view?usp=drive_link"
-r = requests.get(url)
-with open("model/cancer_treatment_protocol_model.pkl", "wb") as f:
-    f.write(r.content)
-
+# Load components
 model = joblib.load("model/cancer_treatment_protocol_model.pkl")
 scaler = joblib.load("model/scaler.pkl")
 label_encoder = joblib.load("model/label_encoder.pkl")
 feature_names = joblib.load("model/feature_names.pkl")
+
+app = Flask(__name__, template_folder='.')
+
 
 @app.route("/", methods=["GET"])
 def index():
