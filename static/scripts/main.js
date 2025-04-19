@@ -9,13 +9,14 @@ function handleFormSubmit(event) {
     document.getElementById("predictionForm").classList.add("hidden");
     document.getElementById("resultPage").classList.add("hidden");
 
-    fetch("/predict", {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json",
-        },
-        body: JSON.stringify(formObject),
+    fetch("https://your-flask-app.onrender.com/predict", {
+    method: "POST",
+    headers: {
+        "Content-Type": "application/json",
+    },
+    body: JSON.stringify(formObject),
     })
+
     .then((response) => response.json())
     .then((data) => {
         document.getElementById("loadingScreen").classList.add("hidden");
