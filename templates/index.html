@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cancer Treatment Prediction</title>
+    <link rel="stylesheet" href="/static/styles/main.css">
+</head>
+<body>
+    <header>
+        <img src="/static/cancer_institution_logo.svg" alt="Logo" class="logo">
+    </header>
+    
+    <h2>Cancer Treatment Protocol Prediction</h2>
+    <div class="form-container">
+        <!-- Form Section -->
+        <form id="predictionForm" onsubmit="handleFormSubmit(event)">
+            <label for="age">Age at Diagnosis (in Years):</label>
+            <input type="number" name="age" required>
+
+            <label for="tumor_grade">Tumor Grade:</label>
+            <select name="tumor_grade" required>
+                <option value="1">G1</option>
+                <option value="2">G2</option>
+                <option value="3">G3</option>
+                <option value="4">G4</option>
+                <option value="5">High Grade</option>
+                <option value="-1">GX (Unknown)</option>
+            </select>
+
+            <label for="treatment_type">Planned Treatment Type:</label>
+            <select name="treatment_type">
+                <option value="Chemo">Chemotherapy</option>
+                <option value="Radiation">Radiation Therapy</option>
+                <option value="Surgery">Surgery</option>
+            </select>
+
+            <label for="family_cancer_history">Family Cancer History (1 = Yes, 0 = No):</label>
+            <select name="family_cancer_history">
+                <option value="1">Yes</option>
+                <option value="0">No</option>
+            </select>
+
+            <label for="tumor_size">Tumor Size (Diameter in mm):</label>
+            <input type="number" name="tumor_size" required>
+
+            <label for="cancer_stage">Cancer Stage:</label>
+            <select name="cancer_stage">
+                <option value="Stage I">Stage I</option>
+                <option value="Stage II">Stage II</option>
+                <option value="Stage III">Stage III</option>
+                <option value="Stage IV">Stage IV</option>
+                <option value="Unknown">Unknown</option>
+            </select>
+
+            <label for="metastasis">Metastasis at Diagnosis:</label>
+            <select name="metastasis">
+                <option value="Metastasis, NOS">Metastasis, NOS</option>
+                <option value="No Metastasis">No Metastasis</option>
+                <option value="Unknown">Unknown</option>
+            </select>
+
+            <label for="survival_time">Expected Survival Time (Days):</label>
+            <input type="number" name="survival_time" required>
+
+            <button type="submit">Predict Treatment Protocol</button>
+        </form>
+    </div>
+
+    <!-- Loading Screen (Initially Hidden) -->
+    <div id="loadingScreen" class="hidden">
+        <div class="loader"></div>
+        <p>Loading, please wait...</p>
+    </div>
+
+    <!-- Result Page (Initially Hidden) -->
+    <div id="resultPage" class="hidden">
+        <p class="result">Recommended Treatment Protocol: <strong id="predictionResult"></strong></p>
+        <p class="result error" id="errorResult"></p>
+        <button onclick="resetForm()">Predict Another</button>
+    </div>
+
+    <script src="/static/scripts/main.js"></script>
+</body>
+</html>
