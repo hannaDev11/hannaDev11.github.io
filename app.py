@@ -2,18 +2,29 @@ from flask import Flask, request, render_template, jsonify
 import joblib
 import pandas as pd
 import csv 
-import requests
 import os
+import requests
 
-MODEL_URL = "https://drive.google.com/file/d/1qEzn4h3dGQQczj2CMwdLD5MJs48lUJuc/view?usp=drive_link"
-MODEL_PATH = "model/cancer_treatment_protocol_model.pkl"
+def download_model_from_drive(file_id, destination):
+    if os.path.exists(destination):
+        return  # Don't re-download if already exists
 
-# Download model if not already there
-if not os.path.exists(MODEL_PATH):
-    r = requests.get(MODEL_URL)
-    os.makedirs("model", exist_ok=True)
-    with open(MODEL_PATH, "wb") as f:
-        f.write(r.content)
+    print("📥 Downloading model from Google Drive...")
+    url = f"https://drive.google.com/uc?export=download&id={file_id}"
+    response = requests.get(url)
+    os.makedirs(os.path.dirname(destination), exist_ok=True)
+    with open(destination, "wb") as f:
+        f.write(response.content)
+    print("✅ Model downloaded.")
+
+# Usage
+model_path = "model/cancer_treatment_protocol_model.pkl"
+drive_file_id = "your-file-id-here"  # ← paste your actual Google Drive ID
+download_model_from_drive(drive_file_id, model_path)
+
+# Then load model
+model = joblib.load(model_path)
+
 
 app = Flask(__name__, template_folder='.')
 url = "https://drive.google.com/file/d/1qEzn4h3dGQQczj2CMwdLD5MJs48lUJuc/view?usp=drive_link"
