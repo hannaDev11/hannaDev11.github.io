@@ -10,13 +10,13 @@ function handleFormSubmit(event) {
     document.getElementById("resultPage").classList.add("hidden");
 
     fetch("/predict", {
-    method: "POST",
-    headers: {
-        "Content-Type": "application/json",
-    },
-    body: JSON.stringify(formObject),
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formObject),
     })
-
+    
     .then((response) => response.json())
     .then((data) => {
         document.getElementById("loadingScreen").classList.add("hidden");
