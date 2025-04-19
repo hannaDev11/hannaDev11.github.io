@@ -3,6 +3,17 @@ import joblib
 import pandas as pd
 import csv 
 import requests
+import os
+
+MODEL_URL = "https://your-public-link.com/cancer_treatment_protocol_model.pkl"
+MODEL_PATH = "model/cancer_treatment_protocol_model.pkl"
+
+# Download model if not already there
+if not os.path.exists(MODEL_PATH):
+    r = requests.get(MODEL_URL)
+    os.makedirs("model", exist_ok=True)
+    with open(MODEL_PATH, "wb") as f:
+        f.write(r.content)
 
 app = Flask(__name__, template_folder='.')
 url = "https://drive.google.com/file/d/1qEzn4h3dGQQczj2CMwdLD5MJs48lUJuc/view?usp=drive_link"
