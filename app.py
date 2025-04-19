@@ -3,7 +3,7 @@ import joblib
 import pandas as pd
 import csv 
 
-app = Flask(__name__)
+app = Flask(__name__, template_folder='.')
 
 model = joblib.load("model/cancer_treatment_protocol_model.pkl")
 scaler = joblib.load("model/scaler.pkl")
