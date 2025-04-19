@@ -21,7 +21,7 @@ def download_file_from_drive(file_id, destination):
 
 # Google Drive file IDs
 drive_files = {
-    "model/cancer_treatment_protocol_model.pkl": "1qEzn4h3dGQQczj2CMwdLD5MJs48lUJuc",
+    "model/cancer_treatment_protocol_model.pkl": "1E6rdfIvjT3WyXGLZsslXXr0lVb3RvQLd",
     "model/scaler.pkl": "1ghjucsm2dlEoomt53PCWe7rcbgPHr6ft",
     "model/label_encoder.pkl":"1I-qCObWfWfEJr4l6Mgl_VIAYrzdVZ-FE",
     "model/feature_names.pkl": "1jgJY2qzXXfLCljILlpBfwswm6OA9guDv"
